@@ -27,17 +27,19 @@ package MathCode;
  */
 public class Math_400 {
     public static void main(String[] args) {
-        System.out.println(findNthDigit(100000000));
+        System.out.println(findNthDigit(10));
     }
     public static int findNthDigit(int n){
-        int count=0;
-        int num=-1;
-        for (int i=1;i<=n;i++){
-            while (i>0){
-                num=i/10;
-                i/=10;
-                count++;
-            }
+        int len = 1;
+        long count = 9;
+        int start = 1;
+        while (n > len * count) {
+            n -= len * count;
+            len++;
+            start *= 10;
+            count *= 10;
         }
+        start += (n - 1) / len;
+        return String.valueOf(start).charAt((n - 1) % len) - '0';
     }
 }
