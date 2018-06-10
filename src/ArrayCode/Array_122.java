@@ -30,7 +30,7 @@ package ArrayCode;
 public class Array_122 {
     public static void main(String[] args) {
         int [] prices={7,1,5,3,6,4};
-        System.out.println(maxProfit2(prices));
+        System.out.println(maxProfit3(prices));
     }
 
     //采用递归方法 然而超时 23333
@@ -62,6 +62,22 @@ public class Array_122 {
             }
         }
         return maxProfit;
+    }
+
+    public static int maxProfit3(int[] prices) {
+        int len = prices.length;
+        if (len == 0) {
+            return 0;
+        }
+        int[] buy = new int[len];
+        int[] sell = new int[len];
+        buy[0] = -prices[0];
+        sell[0] = 0;
+        for (int i = 1; i < len; i++) {
+            buy[i] = Math.max(buy[i - 1], sell[i - 1] - prices[i]);
+            sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i]);
+        }
+        return sell[len - 1];
     }
 
 }
